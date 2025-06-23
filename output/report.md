@@ -1,14 +1,7 @@
-# Auto Report
+# Data Analysis Report
 
-## Statistics
-- **count**: 4.0
-- **mean**: 2.6999999999999997
-- **std**: 2.136976056643281
-- **min**: 0.0
-- **25%**: 1.7249999999999999
-- **50%**: 2.8499999999999996
-- **75%**: 3.8249999999999997
-- **max**: 5.1
+## Summary
+The dataset shows a decreasing trend over time, with a mean value of approximately 2.7 and a standard deviation of 2.14. The data is relatively dispersed, with a minimum value of 0 and a maximum value of 5.1. The median value is 2.85, indicating that the majority of the data points are above this value.
 
-
-![Chart](chart.png)
+---
+![Trend Plot](trend_plot.png)
