@@ -1,5 +1,5 @@
 from memory import Memory
-from agents import parser, fetcher, cleaner, analyzer, reporter
+from agents import parser, fetcher, cleaner, analyzer, reporter , profiler , analysis_strategy , cleaning_strategy
 
 def run_pipeline(user_input):
     print("Starting pipeline...")
@@ -13,11 +13,20 @@ def run_pipeline(user_input):
     print("Data fetched")
     memory.set("raw_df", df)
 
-    df_clean = cleaner.clean(df)
+    profile = profiler.profile(df)
+    memory.set("profile", profile)
+    
+    clean_plan = cleaning_strategy.get_cleaning_plan(profile)
+    memory.set("cleaning_plan", clean_plan)
+
+    analysis_plan = analysis_strategy.get_analysis_plan(profile)
+    memory.set("analysis_plan", analysis_plan)
+
+    df_clean = cleaner.clean(df, clean_plan)
     print("Data cleaned")
     memory.set("clean_df", df_clean)
 
-    stats = analyzer.analyze(df_clean, parsed["target_column"])
+    stats = analyzer.analyze(df, analysis_plan)
     print("Analysis complete:", stats)
     memory.set("stats", stats)
 
