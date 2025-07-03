@@ -1,42 +1,39 @@
 import os
 from dotenv import load_dotenv
-import requests
+from langchain_groq import ChatGroq
+from langchain.prompts import PromptTemplate
+from langchain.schema import HumanMessage
+
 
 load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 
-def write_report(stats):
-    print("[Reporter] Using Groq to write natural language report...")
+llm = ChatGroq(
+    groq_api_key=groq_api_key,
+    model_name="llama3-8b-8192"
+)
 
-    prompt = f"""
-You are a data analyst assistant. Based on the following statistics, write a brief natural language summary of the dataset trend.
+prompt_template = PromptTemplate.from_template("""
+You are a data analyst assistant. Given the following dictionary of summary statistics:
 
-Stats:
 {stats}
 
-Make it concise, clear, and insightful (3–5 sentences max).
-"""
+Write a concise, insightful markdown report (3-5 sentences max) explaining the trend, key values, and what the data indicates.
+Avoid any generic disclaimers.
+""")
 
-    response = requests.post(
-        "https://api.groq.com/openai/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {GROQ_API_KEY}",
-            "Content-Type": "application/json"
-        },
-        json={
-            "model": "llama3-8b-8192",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.2
-        }
-    )
+def write_report(stats):
+    print("[Reporter] Using LangChain + Groq to write summary...")
 
-    result = response.json()["choices"][0]["message"]["content"]
+    prompt = prompt_template.format(stats=stats)
 
-    
-    with open("output/report.md", "w") as f:
+    response = llm([HumanMessage(content=prompt)])
+    summary = response.content.strip()
+
+    with open("output/report.md", "w", encoding="utf-8") as f:
         f.write("# Data Analysis Report\n\n")
-        f.write("## Summary\n")
-        f.write(result.strip())
+        f.write("## Summary\n\n")
+        f.write(summary)
         f.write("\n\n---\n![Trend Plot](trend_plot.png)\n")
-    
-    print("Groq summary written to report.md")
+
+    print("Summary written to `output/report.md`")
