@@ -1,7 +1,11 @@
 # Data Analysis Report
 
 ## Summary
-The dataset shows a decreasing trend over time, with a mean value of approximately 2.7 and a standard deviation of 2.14. The data is relatively dispersed, with a minimum value of 0 and a maximum value of 5.1. The median value is 2.85, indicating that the majority of the data points are above this value.
+
+**Summary Statistics Report**
+================================
+
+The dataset exhibits a **decreasing trend** over time, with a correlation to time of -0.248, indicating a moderate negative relationship. The mean value is 2.699, with a standard deviation of 2.136, suggesting a relatively spread-out distribution. The median value is 2.85, which is closer to the mean than the minimum value of 0.0 and maximum value of 5.1, indicating that the majority of the data points are clustered around the median.
 
 ---
 ![Trend Plot](trend_plot.png)
