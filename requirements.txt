@@ -1,4 +1,10 @@
 pandas
 matplotlib
 seaborn
+scikit_learn
 markdown2
+langchain
+langchain-community
+langchain-groq
+groq
+python-dotenv
