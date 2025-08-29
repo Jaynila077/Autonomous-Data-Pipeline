@@ -1,0 +1,27 @@
+import logging
+import os
+from datetime import datetime
+
+LOG_DIR = "logs"
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOG_FILE = os.path.join(LOG_DIR, f"log_{datetime.now().strftime('%Y-%m-%d')}.log")
+
+
+logging.basicConfig(
+    level=logging.INFO,  
+    format="%(asctime)s - %(levelname)s - %(module)s - %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE),  
+        logging.StreamHandler()         
+    ]
+)
+
+logger = logging.getLogger("Autonomus Data Pipeline Logger")
+
+if __name__ == "__main__":
+    logger.info("Logger initialized successfully!")
+    logger.debug("This is a debug message.")
+    logger.warning("This is a warning.")
+    logger.error("This is an error message.")
+    logger.critical("This is a critical issue!")
