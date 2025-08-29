@@ -1,37 +1,44 @@
 from memory import Memory
 from agents import parser, fetcher, cleaner, analyzer, reporter , profiler , analysis_strategy , cleaning_strategy
+from utils.logger import logger
+
 
 def run_pipeline(user_input):
-    print("Starting pipeline...")
+    logger.info("Starting pipeline...")
     memory = Memory()
 
     parsed = parser.parse(user_input)
-    print("Parsed:", parsed)
+    logger.info("Parsed:", parsed)
     memory.set("parsed", parsed)
 
     df = fetcher.fetch(parsed["file_path"])
-    print("Data fetched")
+    logger.info("Data fetched")
     memory.set("raw_df", df)
 
     profile = profiler.profile(df)
+    logger.info("Profile complete:", profile)
     memory.set("profile", profile)
     
     clean_plan = cleaning_strategy.get_cleaning_plan(profile)
+    logger.info("Cleaning plan complete:", clean_plan)
     memory.set("cleaning_plan", clean_plan)
 
     analysis_plan = analysis_strategy.get_analysis_plan(profile)
+    logger.info("Analysis plan complete:", analysis_plan)
     memory.set("analysis_plan", analysis_plan)
 
     df_clean = cleaner.clean(df, clean_plan)
-    print("Data cleaned")
+    logger.info("Data cleaned")
     memory.set("clean_df", df_clean)
 
     stats = analyzer.analyze(df, analysis_plan)
-    print("Analysis complete:", stats)
+    logger.info("Analysis complete:", stats)
     memory.set("stats", stats)
 
     reporter.write_report(stats)
-    print("Report written to `output/report.md`")
+    logger.info("Report written to `output/report.md`")
+
+
 
 
 if __name__ == "__main__":
