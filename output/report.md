@@ -3,9 +3,8 @@
 ## Summary
 
 **Summary Statistics Report**
-================================
 
-The dataset exhibits a **decreasing trend** over time, with a correlation to time of -0.248, indicating a moderate negative relationship. The mean value is 2.699, with a standard deviation of 2.136, suggesting a relatively spread-out distribution. The median value is 2.85, which is closer to the mean than the minimum value of 0.0 and maximum value of 5.1, indicating that the majority of the data points are clustered around the median.
+The data shows a decreasing trend over time, with a correlation coefficient of -0.248 indicating a moderate inverse relationship between the variable and time. The median value is 2.85, with a minimum of 0.0 and a maximum of 5.1. The data also exhibits a moderate degree of dispersion, with a standard deviation of 2.14. Notably, there are no anomalies present in the data. Overall, the data suggests a gradual decline in the variable over time, with some variability around the mean.
 
 ---
 ![Trend Plot](trend_plot.png)
