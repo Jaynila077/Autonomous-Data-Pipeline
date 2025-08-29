@@ -1,3 +1,4 @@
+from utils.logger import logger
 from langchain_groq import ChatGroq
 from langchain.prompts import PromptTemplate
 from langchain.schema import HumanMessage
@@ -23,9 +24,9 @@ Respond ONLY with the JSON.
 """)
 
 def get_analysis_plan(profile):
-    print("[Analysis Strategy Agent] Querying LLM for analysis plan...")
+    logger.info("[Analysis Strategy Agent] Querying LLM for analysis plan...")
     result = llm.invoke([HumanMessage(content=prompt.format(profile=profile))])
-    match = re.search(r"\{.*\}", result, re.DOTALL)
+    match = re.search(r"\{.*\}", result.content, re.DOTALL)
     if match:
         return json.loads(match.group(0))
     return {}

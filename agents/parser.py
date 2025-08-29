@@ -1,3 +1,4 @@
+from utils.logger import logger
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
@@ -25,23 +26,24 @@ Respond ONLY with a valid Python dictionary like:
 
 
 def parse(user_input):
-    print("[LangChain Parser] Using Groq via LangChain...")
+    logger.info("[LangChain Parser] Using Groq via LangChain...")
 
     formatted_prompt = prompt.format(user_input=user_input)
     response = llm.invoke([HumanMessage(content=formatted_prompt)])
     result = response.content.strip()
 
-    print("LLM Raw Output:", result)
+    logger.info("LLM Raw Output: " + result)
+
 
     try:
         match = re.search(r"\{.*\}", result, re.DOTALL)
         if match:
             parsed_dict = eval(match.group(0), {"__builtins__": {}})
-            print("Parsed Dict:", parsed_dict)
+            logger.info("Parsed Dict: " + str(parsed_dict))
             return parsed_dict
         else:
-            print("Could not find dictionary in output.")
+            logger.error("Could not find dictionary in output.")
             return {}
     except Exception as e:
-        print("Error parsing dictionary:", e)
+        logger.error("Error parsing dictionary: " + str(e))
         return {}

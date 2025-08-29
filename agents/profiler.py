@@ -1,5 +1,7 @@
+from utils.logger import logger
+
 def profile(df):
-    print("[Profiler] Profiling dataset...")
+    logger.info("[Profiler] Profiling dataset...")
     
     summary = {
         "head": df.head(3).to_dict(),

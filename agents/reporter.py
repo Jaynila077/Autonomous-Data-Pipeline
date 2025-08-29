@@ -1,3 +1,4 @@
+from utils.logger import logger
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
@@ -23,11 +24,12 @@ Avoid any generic disclaimers.
 """)
 
 def write_report(stats):
-    print("[Reporter] Using LangChain + Groq to write summary...")
+    logger.info("[Reporter] Using LangChain + Groq to write summary...")
+
 
     prompt = prompt_template.format(stats=stats)
 
-    response = llm([HumanMessage(content=prompt)])
+    response = llm.invoke([HumanMessage(content=prompt)])
     summary = response.content.strip()
 
     with open("output/report.md", "w", encoding="utf-8") as f:
@@ -36,4 +38,6 @@ def write_report(stats):
         f.write(summary)
         f.write("\n\n---\n![Trend Plot](trend_plot.png)\n")
 
-    print("Summary written to `output/report.md`")
+
+    logger.info("[Reporter] Summary written to `output/report.md`")
+

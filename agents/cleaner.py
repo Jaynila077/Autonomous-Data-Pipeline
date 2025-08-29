@@ -1,9 +1,10 @@
+from utils.logger import logger
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import OneHotEncoder
 
 def clean(df, cleaning_plan):
-    print("[Cleaner] Applying LLM cleaning strategy...")
+    logger.info("[Cleaner] Applying LLM cleaning strategy...")
 
     for col in cleaning_plan.get("drop_columns", []):
         if col in df.columns:
@@ -28,5 +29,5 @@ def clean(df, cleaning_plan):
             dummies = pd.get_dummies(df[col], prefix=col)
             df = pd.concat([df.drop(columns=[col]), dummies], axis=1)
 
-    print("Cleaning complete.")
+    logger.info("Cleaning complete.")
     return df

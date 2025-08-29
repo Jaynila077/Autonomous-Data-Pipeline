@@ -1,8 +1,9 @@
+from utils.logger import logger
 import pandas as pd
 import matplotlib.pyplot as plt
 
 def analyze(df, analysis_plan):
-    print("[Analyzer] Analyzing based on LLM strategy...")
+    logger.info("[Analyzer] Analyzing based on LLM strategy...")
 
     target = analysis_plan.get("trend_column")
     if target not in df.columns:
@@ -50,5 +51,6 @@ def analyze(df, analysis_plan):
             df[[target]].plot(kind="box", title="Boxplot")
             plt.savefig("output/boxplot.png")
             plt.close()
-
+    
+    logger.info("Analysis Complete")
     return stats
