@@ -19,7 +19,8 @@ You are a data analyst assistant. Given the following dictionary of summary stat
 
 {stats}
 
-Write a concise, insightful markdown report (3-5 sentences max) explaining the trend, key values, and what the data indicates.
+Write a concise, insightful markdown report (5-7 sentences max). Explain the key trends, values, and insights from the analysis. 
+If there are advanced analysis results (correlation, regression, or clustering), be sure to interpret them.
 Avoid any generic disclaimers.
 """)
 
@@ -37,7 +38,12 @@ def write_report(stats):
         f.write("## Summary\n\n")
         f.write(summary)
         f.write("\n\n---\n![Trend Plot](trend_plot.png)\n")
+        
+        # Add links to new plots if they exist
+        if os.path.exists("output/correlation_matrix.png"):
+            f.write("![Correlation Matrix](correlation_matrix.png)\n")
+        if os.path.exists("output/cluster_plot.png"):
+            f.write("![Cluster Plot](cluster_plot.png)\n")
 
 
     logger.info("[Reporter] Summary written to `output/report.md`")
-
