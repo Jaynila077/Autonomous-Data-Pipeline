@@ -14,11 +14,16 @@ You are a data analyst assistant.
 Given this dataset profile:
 {profile}
 
-Suggest a JSON object with:
+Suggest a JSON object for a comprehensive analysis plan. The plan should include:
 - trend_column: (pick the best numeric column to track over time)
 - anomaly_method: ("IQR", "Z-score", or "none")
 - rolling_window: an integer window size for smoothing
 - optional_plot: list of plots to include (like "histogram", "boxplot", "scatter")
+- feature_engineering: a list of dictionaries for feature creation (e.g., "date_part", "polynomial", "interaction").
+- advanced_analysis: A dictionary specifying ONE advanced analysis to perform. Choose the most relevant from "correlation", "regression", or "clustering".
+  - For "correlation", include a "heatmap_columns" key with a list of numeric columns.
+  - For "regression", include a "target" and a list of "features".
+  - For "clustering", include "n_clusters" and a list of "features".
 
 Respond ONLY with the JSON.
 """)
