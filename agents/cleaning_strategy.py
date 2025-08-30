@@ -10,16 +10,17 @@ load_dotenv()
 llm = ChatGroq(model_name="llama3-8b-8192", groq_api_key=os.getenv("GROQ_API_KEY"))
 
 prompt = PromptTemplate.from_template("""
-You are a data cleaning planner bot.
+You are a data cleaning planner assistance.
 
 Based on this dataset profile:
 {profile}
 
 Return a JSON object with:
 - drop_columns: list of column names
-- fill_missing: dict of column: method ("mean", "median", "mode")
+- fill_missing: dict of column: method ("mean", "median", "mode", "knn", "interpolate")
 - scale_columns: list of numeric columns to normalize
 - encode_columns: list of categorical columns to one-hot encode
+- outlier_handling: dict of column: method ("z-score", "iqr", "none") with threshold (e.g., 3 for z-score, 1.5 for iqr)                                      
 
 Respond ONLY with the JSON.
 """)
