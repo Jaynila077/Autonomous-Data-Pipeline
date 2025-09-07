@@ -8,3 +8,8 @@ langchain-community
 langchain-groq
 groq
 python-dotenv
+qdrant-client
+sentence-transformers 
+fastapi[standard]
+rq
+redis
