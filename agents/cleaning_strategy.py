@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-llm = ChatGroq(model_name="llama3-8b-8192", groq_api_key=os.getenv("GROQ_API_KEY"))
+llm = ChatGroq(model_name="openai/gpt-oss-20b", groq_api_key=os.getenv("GROQ_API_KEY"))
 
 prompt = PromptTemplate.from_template("""
 You are a data cleaning planner assistance.

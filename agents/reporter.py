@@ -11,7 +11,7 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 
 llm = ChatGroq(
     groq_api_key=groq_api_key,
-    model_name="llama3-8b-8192"
+    model_name="openai/gpt-oss-20b"
 )
 
 prompt_template = PromptTemplate.from_template("""

@@ -20,7 +20,7 @@ def clean(df, cleaning_plan):
             elif method == "mode":
                 df[col] = df[col].fillna(df[col].mode()[0])
 
-    for col, config in cleaning_plan.get("outlier_handling", {}).items():
+    for col, config in cleaning_plan.get("outlier_handling", {}).items(): 
         method = config.get("method")
         threshold = config.get("threshold", 3.0)
         if col in df.columns:
