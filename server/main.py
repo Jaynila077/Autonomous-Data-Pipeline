@@ -1,10 +1,23 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from rq.job import Job
 from .tasks import q, redis_conn
 import os
 
 app = FastAPI(title="Autonomous Data Pipeline API", version="1.0.0")
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], 
+    allow_headers=["*"],  
+)
 
 app.mount("/outputs", StaticFiles(directory="output"), name="outputs")
 
